@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3cn1ci3xyj3n"]
+
+[ext_resource type="Texture2D" uid="uid://bjdgefpjmly11" path="res://Piece1.aseprite" id="2_apael"]
+
+[node name="Node2D" type="Node2D" groups=["ground"]]
+position = Vector2(-1, 0)
+
+[node name="Piece1" type="Sprite2D" parent="." groups=["ground"]]
+position = Vector2(194, -1)
+scale = Vector2(3, 3)
+texture = ExtResource("2_apael")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["ground"]]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+scale = Vector2(3, 3)
+polygon = PackedVector2Array(1, -1, 1, 63, 130, 63)
+
+[node name="Area2D" type="Area2D" parent="." groups=["ground"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" groups=["ground"]]
+scale = Vector2(3, 3)
+polygon = PackedVector2Array(1, -1, 1, 63, 130, 63)

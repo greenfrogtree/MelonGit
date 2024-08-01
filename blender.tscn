@@ -1,0 +1,285 @@
+[gd_scene load_steps=6 format=3 uid="uid://drasgokb8a5lv"]
+
+[ext_resource type="Script" path="res://Melon1.gd" id="2_1dq13"]
+[ext_resource type="Texture2D" uid="uid://bbmuor06wxlf3" path="res://icon.svg" id="2_bidpx"]
+[ext_resource type="Texture2D" uid="uid://bjdgefpjmly11" path="res://Piece1.aseprite" id="4_rkuay"]
+[ext_resource type="Script" path="res://Adding.gd" id="5_ccj0j"]
+
+[sub_resource type="GDScript" id="GDScript_pget5"]
+script/source = "extends Node2D
+@onready var inventory = get_parent()
+@onready var melon = inventory.melons
+var button = preload(\"res://Button2.tscn\")
+var melon1
+var quantity1 = 0
+var melon2
+var quantity2 = 0
+var setting
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+#func initialize():
+	#print(\"menu spawned\" + str(len(melon)))
+	#for i in range(len(melon)):
+		#pass
+		#spawn(button, position,i)
+
+#new, remember to modify
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+
+	if Input.is_action_just_pressed('Inventory'):
+		print(\"Inventory open\")
+		visible = !visible
+	elif Input.is_action_just_pressed('menu_quit'):
+		visible = false
+func spawn(object, position, number):
+	inventory = get_parent()
+	print(\"Inventory:\"+ str(inventory))
+	melon = inventory.melons
+	var instance = object.instantiate()
+	instance.position = position
+	instance.push(melon[number], number, inventory)
+	$Inventory/ScrollContainer/GridContainer.add_child(instance)
+func selected(number, button):
+	print(\"selected\"+str(number))
+	if melon1 == null: melon1 = number
+	else: melon2 = number
+	
+func add():
+	spawn(button, position,len(melon)-1)
+func change(button, value):
+	if button == 1:
+		$Melon1/RichTextLabel.text = \"[center]\" + str(value)
+		quantity1 += value
+		if quantity1 >= melon[melon1][0]:
+			quantity1 = melon[melon1][0]
+	elif button == 2:
+		$Melon2/RichTextLabel.text = \"[center]\" + str(value)
+		quantity2+= value
+		if quantity2 >= melon[melon2][0]:
+			quantity2 = melon[melon2][0]
+func crush():
+	var num = min(quantity1, quantity2)
+	var array = melon[melon1][1] +melon[melon2][2]
+	inventory.synthesize(array, num)
+	melon[melon1][0] -= num
+	melon[melon2][0] -= num
+func blend():
+	var num = min(quantity1, quantity2)
+	var children1 =[]
+	var children2 =[]
+	var matches = []
+	var upgrades = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]
+	for i in range(len(melon[melon1][1])):
+		if melon[melon1][1][i] == 1:
+			children1.append(melon.graph[i])
+	children1.reverse()
+	for i in range(len(melon[melon2][1])):
+		if melon[melon2][1][i] == 1:
+			children1.append(melon.graph[i])
+	children2.reverse()
+	for i in range(len(children1)):
+		for j in range(len(children1[i])):
+			var matched = false
+			for k in range(len(children2)):
+				if children1[i][j] in children2[k]:
+					matches.append(children1[i][j])
+					matched = true
+					break
+			if matched == true:
+				break
+	for i in matches:
+		upgrades[i] = 1
+	inventory.synthesize(upgrades, num)
+	melon[melon1][0] -= num
+	melon[melon2][0] -= num
+		
+	
+
+"
+
+[node name="Blender" type="Node2D"]
+script = SubResource("GDScript_pget5")
+
+[node name="Inventory" type="Control" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -7.0
+offset_top = -5.0
+offset_right = 1913.0
+offset_bottom = 1075.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Inventory"]
+custom_minimum_size = Vector2(1000, 250)
+layout_mode = 0
+offset_left = 426.0
+offset_top = 566.0
+offset_right = 1426.0
+offset_bottom = 1066.0
+
+[node name="GridContainer" type="GridContainer" parent="Inventory/ScrollContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="Melon1" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 211.0
+offset_top = 136.0
+offset_right = 511.0
+offset_bottom = 436.0
+script = ExtResource("2_1dq13")
+
+[node name="Icon" type="Sprite2D" parent="Melon1"]
+position = Vector2(149, 151)
+scale = Vector2(2.30176, 2.30176)
+texture = ExtResource("2_bidpx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Melon1"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 230.0
+offset_right = 212.0
+offset_bottom = 270.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]100000"
+fit_content = true
+
+[node name="+1" type="TextureButton" parent="Melon1"]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 231.0
+offset_right = 382.0
+offset_bottom = 359.0
+scale = Vector2(0.258063, 0.215918)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = 1
+button = 1
+
+[node name="+10" type="TextureButton" parent="Melon1"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 242.0
+offset_right = 348.0
+offset_bottom = 370.0
+scale = Vector2(0.163309, 0.136639)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = 10
+button = 1
+
+[node name="-1" type="TextureButton" parent="Melon1"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 235.0
+offset_right = 191.0
+offset_bottom = 363.0
+scale = Vector2(-0.268093, 0.204981)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = -1
+button = 1
+
+[node name="-10" type="TextureButton" parent="Melon1"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 247.0
+offset_right = 226.0
+offset_bottom = 375.0
+scale = Vector2(-0.156658, 0.115341)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = -10
+button = 1
+
+[node name="Melon2" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 609.0
+offset_top = 137.0
+offset_right = 909.0
+offset_bottom = 437.0
+script = ExtResource("2_1dq13")
+
+[node name="Icon" type="Sprite2D" parent="Melon2"]
+position = Vector2(149, 151)
+scale = Vector2(2.30176, 2.30176)
+texture = ExtResource("2_bidpx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Melon2"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 230.0
+offset_right = 212.0
+offset_bottom = 270.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]100000"
+fit_content = true
+
+[node name="+1" type="TextureButton" parent="Melon2"]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 231.0
+offset_right = 382.0
+offset_bottom = 359.0
+scale = Vector2(0.258063, 0.215918)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = 1
+button = 2
+
+[node name="+10" type="TextureButton" parent="Melon2"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 242.0
+offset_right = 348.0
+offset_bottom = 370.0
+scale = Vector2(0.163309, 0.136639)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = 10
+button = 2
+
+[node name="-1" type="TextureButton" parent="Melon2"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 235.0
+offset_right = 191.0
+offset_bottom = 363.0
+scale = Vector2(-0.268093, 0.204981)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = -1
+button = 2
+
+[node name="-10" type="TextureButton" parent="Melon2"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 247.0
+offset_right = 226.0
+offset_bottom = 375.0
+scale = Vector2(-0.156658, 0.115341)
+texture_normal = ExtResource("4_rkuay")
+script = ExtResource("5_ccj0j")
+value = -10
+button = 2
+
+[connection signal="pressed" from="Melon1/+1" to="Melon1/+1" method="_on_pressed"]
+[connection signal="pressed" from="Melon1/+10" to="Melon1/+10" method="_on_pressed"]
+[connection signal="pressed" from="Melon1/-1" to="Melon1/-1" method="_on_pressed"]
+[connection signal="pressed" from="Melon1/-10" to="Melon1/-10" method="_on_pressed"]
+[connection signal="pressed" from="Melon2/+1" to="Melon2/+1" method="_on_pressed"]
+[connection signal="pressed" from="Melon2/+10" to="Melon2/+10" method="_on_pressed"]
+[connection signal="pressed" from="Melon2/-1" to="Melon2/-1" method="_on_pressed"]
+[connection signal="pressed" from="Melon2/-10" to="Melon2/-10" method="_on_pressed"]

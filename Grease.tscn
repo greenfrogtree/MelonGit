@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw2uh6q64g64f"]
+
+[ext_resource type="Script" path="res://Scripts/Grease.gd" id="1_dbme8"]
+[ext_resource type="Texture2D" uid="uid://bbmuor06wxlf3" path="res://icon.svg" id="2_pibn0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xq4ol"]
+size = Vector2(222, 298)
+
+[node name="Node2D" type="Node2D" groups=["grease"]]
+position = Vector2(2, 155)
+script = ExtResource("1_dbme8")
+
+[node name="Area2D" type="Area2D" parent="." groups=["grease"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["grease"]]
+position = Vector2(0, -148)
+shape = SubResource("RectangleShape2D_xq4ol")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-3, -151)
+scale = Vector2(1.79688, 2.375)
+texture = ExtResource("2_pibn0")

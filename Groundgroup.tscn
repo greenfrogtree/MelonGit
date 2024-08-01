@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpvta5tlis3ci"]
+
+[ext_resource type="PackedScene" uid="uid://d0eab785ioql" path="res://Ground2.tscn" id="1_q77wp"]
+[ext_resource type="PackedScene" uid="uid://b3cn1ci3xyj3n" path="res://Ground1.tscn" id="2_i16y7"]
+
+[node name="GroundConglomerate" type="Node2D"]
+
+[node name="Node2D4" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(1, 868)
+scale = Vector2(3.27915, 3.27915)
+
+[node name="Node2D5" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(422, 868)
+scale = Vector2(3.27915, 3.27915)
+
+[node name="Node2D6" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(841, 866)
+scale = Vector2(3.27915, 3.37612)
+
+[node name="Node2D7" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(1262, 866)
+scale = Vector2(3.27915, 3.27915)
+
+[node name="Node2D8" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(3, 661)
+scale = Vector2(3.27915, 3.27915)
+
+[node name="Node2D9" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(424, 661)
+scale = Vector2(3.27915, 3.27915)
+
+[node name="Node2D11" parent="." instance=ExtResource("1_q77wp")]
+position = Vector2(1680, 866)
+scale = Vector2(6.11588, 3.14628)
+
+[node name="Node2D" parent="." instance=ExtResource("2_i16y7")]
+position = Vector2(839, 677)

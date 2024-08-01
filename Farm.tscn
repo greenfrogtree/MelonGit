@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw345t7snasre"]
+
+[ext_resource type="Script" path="res://Farm.gd" id="1_qknne"]
+[ext_resource type="Texture2D" uid="uid://cnefhcarxh6l1" path="res://Farm.aseprite" id="2_fysl2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgnvf"]
+size = Vector2(93, 94)
+
+[node name="Farm" type="Node2D"]
+position = Vector2(-44, -95)
+script = ExtResource("1_qknne")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(48.5, 45)
+shape = SubResource("RectangleShape2D_tgnvf")
+
+[node name="Label" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 133.0
+offset_right = 190.0
+offset_bottom = 173.0
+mouse_filter = 1
+
+[node name="Name" type="RichTextLabel" parent="Label"]
+layout_mode = 0
+offset_left = -146.0
+offset_top = -138.0
+offset_right = -42.0
+offset_bottom = -94.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Name"
+
+[node name="Amount" type="RichTextLabel" parent="Label"]
+layout_mode = 0
+offset_left = -144.0
+offset_top = -108.0
+offset_right = -40.0
+offset_bottom = -64.0
+theme_override_font_sizes/normal_font_size = 24
+text = "x/round"
+
+[node name="Farm" type="Sprite2D" parent="."]
+position = Vector2(47, 48)
+scale = Vector2(3, 3)
+texture = ExtResource("2_fysl2")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

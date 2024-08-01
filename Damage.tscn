@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2v25suk72cie"]
+
+[ext_resource type="Script" path="res://Scripts/TextEdit.gd" id="1_7hcu4"]
+[ext_resource type="Script" path="res://Scripts/Messenger3.gd" id="1_hs21g"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hs21g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+z_index = 2
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 197.0
+offset_bottom = 91.0
+theme_override_font_sizes/normal_font_size = 30
+script = ExtResource("1_7hcu4")
+
+[connection signal="damage2" from="." to="RichTextLabel" method="_on_control_damage_2"]

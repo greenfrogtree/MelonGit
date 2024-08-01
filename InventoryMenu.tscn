@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpjjdfnwdmcnp"]
+
+[ext_resource type="Script" path="res://GridContainer.gd" id="1_3rhon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8bx2p"]
+size = Vector2(634, 126)
+
+[node name="Control" type="Control"]
+z_index = 3
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_3rhon")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 0
+offset_left = -291.0
+offset_top = 98.0
+offset_right = 309.0
+offset_bottom = 198.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_left = 263.0
+offset_top = 110.0
+offset_right = 298.0
+offset_bottom = 146.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(6, 149)
+shape = SubResource("RectangleShape2D_8bx2p")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

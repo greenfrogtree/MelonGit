@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dli44rjoj7op0"]
+
+[ext_resource type="Texture2D" uid="uid://cjtalysdtxwrp" path="res://Art/Circle.png" id="1_rdjr2"]
+[ext_resource type="Script" path="res://Scripts/Arc.gd" id="2_x6vql"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Circle" type="Sprite2D" parent="."]
+position = Vector2(9, -7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 1
+
+[node name="Circle2" type="Sprite2D" parent="."]
+position = Vector2(27, -7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 2
+
+[node name="Circle3" type="Sprite2D" parent="."]
+position = Vector2(46, -7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 3
+
+[node name="Circle4" type="Sprite2D" parent="."]
+position = Vector2(66, -7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 4
+
+[node name="Circle5" type="Sprite2D" parent="."]
+position = Vector2(85, -6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 5
+
+[node name="Circle6" type="Sprite2D" parent="."]
+position = Vector2(103, -6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_rdjr2")
+script = ExtResource("2_x6vql")
+order = 6

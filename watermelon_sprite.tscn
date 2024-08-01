@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://rkbe4hr4m74p"]
+
+[ext_resource type="Shader" path="res://watermelon_sprite.gdshader" id="1_5up8m"]
+[ext_resource type="Script" path="res://WatermelonSprite.gd" id="1_w461s"]
+[ext_resource type="Texture2D" uid="uid://clylvlset48mi" path="res://WatermelonStripes2.aseprite" id="2_y02uw"]
+[ext_resource type="Texture2D" uid="uid://rfltyr4pja2a" path="res://WatermelonStripes.aseprite" id="3_lv4mf"]
+[ext_resource type="Texture2D" uid="uid://1okw6hoihbbj" path="res://WatermelonOutline.aseprite" id="4_lungl"]
+[ext_resource type="Texture2D" uid="uid://bt6k24lef6kc4" path="res://WatermelonShine.aseprite" id="5_cc8xb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7y3a4"]
+resource_local_to_scene = true
+shader = ExtResource("1_5up8m")
+shader_parameter/value = Vector4(1, 0.2, 0, 1)
+shader_parameter/is_highlight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c6iy"]
+resource_local_to_scene = true
+shader = ExtResource("1_5up8m")
+shader_parameter/value = Vector4(0.5, 0, 2, 1)
+shader_parameter/is_highlight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxhdg"]
+resource_local_to_scene = true
+shader = ExtResource("1_5up8m")
+shader_parameter/value = Vector4(0, 0, 0, 1)
+shader_parameter/is_highlight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vbsf"]
+resource_local_to_scene = true
+shader = ExtResource("1_5up8m")
+shader_parameter/value = Vector4(2, 0, 0, 0.3)
+shader_parameter/is_highlight = true
+
+[node name="WatermelonSprite" type="Node2D"]
+z_index = 1
+position = Vector2(96, 86)
+scale = Vector2(3, 3)
+script = ExtResource("1_w461s")
+
+[node name="WatermelonOutline" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7y3a4")
+position = Vector2(-16, -12.6667)
+texture = ExtResource("4_lungl")
+
+[node name="WatermelonStripes" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7c6iy")
+position = Vector2(-16, -12.6667)
+texture = ExtResource("3_lv4mf")
+
+[node name="WatermelonBody" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sxhdg")
+position = Vector2(-16, -12.6667)
+texture = ExtResource("2_y02uw")
+
+[node name="WatermelonShine" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.129412)
+material = SubResource("ShaderMaterial_8vbsf")
+position = Vector2(-16, -12.6667)
+texture = ExtResource("5_cc8xb")

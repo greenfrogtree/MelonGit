@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0eab785ioql"]
+
+[ext_resource type="Texture2D" uid="uid://cx7cq5u2tisai" path="res://Art/Piece2.png" id="1_0rfel"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgbxo"]
+size = Vector2(128, 64)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4uqgf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Piece2" type="Sprite2D" parent="."]
+position = Vector2(64, 0)
+texture = ExtResource("1_0rfel")
+
+[node name="Area2D" type="Area2D" parent="Piece2" groups=["ground"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piece2/Area2D"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_cgbxo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Piece2"]
+collision_layer = 7
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_4uqgf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piece2/StaticBody2D"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_cgbxo")
