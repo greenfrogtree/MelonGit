@@ -1,12 +1,48 @@
-[gd_scene load_steps=6 format=3 uid="uid://d208hg2yybtdh"]
+[gd_scene load_steps=11 format=3 uid="uid://d208hg2yybtdh"]
 
-[ext_resource type="PackedScene" uid="uid://dwlmkmkaoshe8" path="res://Catapult2.aseprite" id="1_gdi5l"]
 [ext_resource type="Script" path="res://Scripts/Shooting.gd" id="2_5fspc"]
 [ext_resource type="Texture2D" uid="uid://cjtalysdtxwrp" path="res://Art/Circle.png" id="3_k2661"]
+[ext_resource type="Texture2D" uid="uid://6raklx4i3tkr" path="res://Catapult2.png" id="4_go4fi"]
 [ext_resource type="Script" path="res://Scripts/Arc.gd" id="4_pnup7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1i23h"]
 size = Vector2(42.6667, 48.3333)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk6jr"]
+atlas = ExtResource("4_go4fi")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osisa"]
+atlas = ExtResource("4_go4fi")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yios2"]
+atlas = ExtResource("4_go4fi")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8444"]
+atlas = ExtResource("4_go4fi")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6uxu2"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_jk6jr")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_osisa")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_yios2")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_y8444")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [node name="Catapult2" type="Sprite2D"]
 position = Vector2(-13, -88)
@@ -70,8 +106,9 @@ texture = ExtResource("3_k2661")
 script = ExtResource("4_pnup7")
 order = 6
 
-[node name="Catapult" parent="." instance=ExtResource("1_gdi5l")]
+[node name="Catapult" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.666667, 6.66667)
+sprite_frames = SubResource("SpriteFrames_6uxu2")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

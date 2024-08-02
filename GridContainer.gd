@@ -23,7 +23,8 @@ func _process(delta):
 			get_parent().mouse_in_ui -=1
 		queue_free();
 	if Input.is_action_pressed("rmb"):
-		get_parent().mouse_in_ui -=1
+		if mouse:
+			get_parent().mouse_in_ui -=1
 		queue_free();
 	if Input.is_action_pressed('lmb')and not mouse and timer <=0:
 		queue_free();

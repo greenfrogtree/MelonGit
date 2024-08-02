@@ -99,7 +99,7 @@ position = Vector2(-134, 193)
 texture = ExtResource("11_yjx8b")
 
 [node name="Wall" type="Sprite2D" parent="Logic"]
-position = Vector2(-127, 90)
+position = Vector2(-146, 67)
 texture = ExtResource("11_yjx8b")
 
 [node name="TextEdit" type="TextEdit" parent="Logic"]
