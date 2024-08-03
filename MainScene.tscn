@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dtb2c5gjiqgtm"]
+[gd_scene load_steps=15 format=3 uid="uid://dtb2c5gjiqgtm"]
 
 [ext_resource type="Script" path="res://Camera.gd" id="1_lfgs5"]
-[ext_resource type="PackedScene" uid="uid://dpvta5tlis3ci" path="res://Groundgroup.tscn" id="5_a72bh"]
 [ext_resource type="PackedScene" uid="uid://fwi40qeh5qtj" path="res://Spawner.tscn" id="6_ecqcl"]
 [ext_resource type="Script" path="res://InventoryMenu.gd" id="8_goxwj"]
 [ext_resource type="PackedScene" uid="uid://dwlmkmkaoshe8" path="res://Catapult2.aseprite" id="8_j3ral"]
@@ -20,20 +19,48 @@ size = Vector2(172, 636)
 texture = ExtResource("12_hayg3")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-1:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
 4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
 5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
 0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
 1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
 2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
 3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
 4:1/0 = 0
+4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:1/0/physics_layer_0/angular_velocity = 0.0
 5:1/0 = 0
+5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_1w30g"]
 tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_63of7")
 
 [node name="MainScene" type="Node2D"]
@@ -44,8 +71,6 @@ script = ExtResource("1_lfgs5")
 [node name="Spawner" parent="." instance=ExtResource("6_ecqcl")]
 position = Vector2(2014, 752)
 scale = Vector2(1.04612, 1.46423)
-
-[node name="GroundConglomerate" parent="." instance=ExtResource("5_a72bh")]
 
 [node name="Node2D2" parent="." instance=ExtResource("8_uilxn")]
 position = Vector2(832, 659)
@@ -154,7 +179,7 @@ offset_right = 453.0
 offset_bottom = 84.0
 scale = Vector2(1.00949, 1)
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["ground"]]
 scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_1w30g")
 format = 2

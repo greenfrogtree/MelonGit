@@ -10,7 +10,7 @@ var dragged
 var dragdirection
 var dragforce
 var attack_cooldown = 1
-var grounded = 0
+var grounded = false
 var greased = 0
 var freezetimer = 0
 var stopped = false
@@ -69,17 +69,30 @@ func _process(delta):
 		if freezetimer <= 0:
 			stopped = false
 
-	if grounded >= 1&& global_position.x >= baseX && linear_velocity.x >= -maxSpeed/slowness && !stopped && greased <=0:
+	if grounded == true&& global_position.x >= baseX && linear_velocity.x >= -maxSpeed/slowness && !stopped && greased <=0:
 		apply_force(Vector2.LEFT *speed)
 		#print(str(linear_velocity.x))
 		if step == true:
-			apply_force(Vector2.UP*1000)
+			apply_force(Vector2.UP*2000)
 	#elif global_position.x <= baseX + 1000:
 		#apply_force(Vector2.RIGHT *linear_velocity.x*-1)
 	elif linear_velocity.x <= -maxSpeed:
 		#print("too fast")
 		apply_force(Vector2.RIGHT * linear_velocity.x*-1)
-
+func _physics_process(delta):
+	if $Ground2.is_colliding():
+		var collider = $Ground2.get_collider()
+		if collider.is_in_group("ground"):
+			grounded = true
+	if $Step.is_colliding():
+		var collider = $Step.get_collider()
+		if collider.is_in_group("ground"):
+			step = true
+	if $Step2.is_colliding():
+		var collider = $Step2.get_collider()
+		if collider.is_in_group("ground"):
+			step = true
+	
 func _on_area_2d_damage(value, upgrades):
 	pass # Replace with function body.
 	damage(value)
@@ -105,9 +118,9 @@ func _on_area_2d_damage(value, upgrades):
 func _on_ground_area_entered(area):
 	pass # Replace with function body.
 	#print("touch")
-	if area.is_in_group("ground"):
-		#print("ground")
-		grounded += 1
+	#if area.is_in_group("ground"):
+		##print("ground")
+		#grounded += 1
 	if area.is_in_group("grease"):
 		greased +=1
 		physics_material_override.friction = 0
@@ -115,8 +128,8 @@ func _on_ground_area_entered(area):
 
 func _on_ground_area_exited(area):
 	pass # Replace with function body.
-	if area.is_in_group("ground"):
-		grounded -= 1
+	#if area.is_in_group("ground"):
+		#grounded -= 1
 	if area.is_in_group("grease"):
 		greased -=1
 		if greased <=0:
