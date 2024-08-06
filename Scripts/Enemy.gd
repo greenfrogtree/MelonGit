@@ -22,7 +22,7 @@ var slowness = 1
 var slowtimer = 0
 var weakness = 1
 var weaknesstimer =0
-
+@onready var debugtext = $TextEdit.text
 var rng = RandomNumberGenerator.new()
 var target = null
 @export var maxSpeed = 0
@@ -37,6 +37,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+	debugtext = ""
 	if stopped == false:
 		if linear_velocity.x <= -60:
 			sprite.play("Running")
@@ -53,6 +55,7 @@ func _process(delta):
 		burn_timer -= delta
 		if burn_timer <= 0:
 			burn_counter -=1 
+			print("burning")
 			damage(burn_damage)
 			burn_timer = 0.5
 	if slowness > 1:
@@ -69,29 +72,46 @@ func _process(delta):
 		if freezetimer <= 0:
 			stopped = false
 
-	if grounded == true&& global_position.x >= baseX && linear_velocity.x >= -maxSpeed/slowness && !stopped && greased <=0:
-		apply_force(Vector2.LEFT *speed)
-		#print(str(linear_velocity.x))
-		if step == true:
-			apply_force(Vector2.UP*2000)
+	
 	#elif global_position.x <= baseX + 1000:
 		#apply_force(Vector2.RIGHT *linear_velocity.x*-1)
-	elif linear_velocity.x <= -maxSpeed:
-		#print("too fast")
-		apply_force(Vector2.RIGHT * linear_velocity.x*-1)
+
+	#if grounded == true:
+		#$TextEdit.text = "grounded"
+	if step == true:
+		$TextEdit.text = "step"
+	if !step:
+		$TextEdit.text = ""
+
 func _physics_process(delta):
+	step = false
+	grounded = false
 	if $Ground2.is_colliding():
 		var collider = $Ground2.get_collider()
-		if collider.is_in_group("ground"):
-			grounded = true
+		if collider != null:
+			if collider.is_in_group("ground"):
+				grounded = true
 	if $Step.is_colliding():
 		var collider = $Step.get_collider()
-		if collider.is_in_group("ground"):
-			step = true
+		if collider != null:
+			if collider.is_in_group("ground"):
+				step = true
 	if $Step2.is_colliding():
 		var collider = $Step2.get_collider()
-		if collider.is_in_group("ground"):
-			step = true
+		if collider != null:
+			if collider.is_in_group("ground"):
+				step = true
+	if grounded == true&& global_position.x >= baseX && linear_velocity.x >= -maxSpeed/slowness && !stopped && greased <=0:
+		apply_force(Vector2.LEFT *speed)
+		#$TextEdit.text = "moving"
+
+		if step == true:
+			apply_force(Vector2.UP*5000)
+	elif linear_velocity.x <= -maxSpeed:
+		#print("too fast")
+		#$TextEdit.text = "too fast"
+		apply_force(Vector2.RIGHT * linear_velocity.x*-1)
+	
 	
 func _on_area_2d_damage(value, upgrades):
 	pass # Replace with function body.
@@ -103,9 +123,10 @@ func _on_area_2d_damage(value, upgrades):
 	if upgrades[2] >=1:
 		chainfunction(upgrades)
 		damage(upgrades[0])
-	if upgrades[4] >= 1:
-		burn_counter = upgrades[4]
-		burn_damage = upgrades[4]
+	if upgrades[1] >= 1:
+		print("burned")
+		burn_counter = upgrades[1]*10
+		burn_damage = upgrades[1]*10
 	if upgrades[5] > 1:
 		slowness =  upgrades[5]
 		slowtimer = upgrades[5]+10

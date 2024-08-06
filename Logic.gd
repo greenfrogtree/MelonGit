@@ -23,16 +23,18 @@ var graph = [
 ]
 
 #------------------------------------- dictionaries --------------------#
+#body, stripes, outline, glint
 var color_dict ={
 	"1": [Vector4(0.458, 0.6549019607843137, 0.2627450980392157, 1),Vector4(0.27450980392156865, 0.5098039215686274, 0.19607843137254902, 1),Vector4(0.1450980392156863, 0.33725490196078434, 0.1803921568627451, 1),Vector4(0.7411764705882353, 0.8627450980392157, 0.2980392156862745, 1)],
 	#"0": [Vector4(1,0,0,1), Vector4(1,0,0,1), Vector4(0,1,0,1), Vector4(0,0,1,1)],
-	"01": [],
+	"01": [htc(0xda863eff),htc(0xcf573cff),htc(0xa53030ff),htc(0xe8c170ff)],
 	"00001": [Vector4(0.678, 0.847, 0.902, 1),Vector4(0.941, 0.973, 0.996, 1),Vector4(0.529, 0.808, 0.922, 1),Vector4(1, 1, 1, 1)]
 	
 }
 var text_dict = {
 	"1": "Your average melon, delicious, refreshing, and useful as a form of currency or ballistic ammunition",
-	"00001":"A cold, icy melon. While certainly refreshing, it holds little value as currency due to its side effects. Freezes enemies on contact."
+	"01": "A burning, fiery melon. Too hot for most to handle, but useful as an incendiary. Sets enemies ablaze on contact.",
+	"00001":"A cold, icy melon. While certainly refreshing, it holds little value as currency due to its frosty side effects. Freezes enemies on contact."
 }
 var name_dict = [
  "Water","Fire","Earth","Wind","Ice"
@@ -46,6 +48,7 @@ func _ready():
 	#var temp = [100, [0,0,0,0,0,0,0,0,0,0,0,0,0], "#000000", 'Watermelon', "Your average melon, delicious and useful as a form of currency or ballistic ammunition"]
 	synthesize([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],1000)
 	temp = [100, [0,0,0,0,0,0,0,0,0,0,0,0,0], "#000000", 'Icemelon', "An icy melon, will freeze enemies on contact"]
+	synthesize([0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],100)
 	synthesize([0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],100)
 #$Inventory.initialize()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,6 +79,8 @@ func spawn(object, position2):
 	var instance = object.instantiate()
 	instance.global_position = position2
 	add_child(instance)
+	instance.rb.gravity_scale = 0
+
 func add(place, quantity):
 	melons[0][0] += quantity
 func synthesize(upgrades, quantity):
@@ -132,3 +137,8 @@ func _on_area_2d_mouse_entered():
 	print("mouse in ui")
 func _on_area_2d_mouse_exited():
 	mouse_in_ui -=1
+func htc(hex):
+	hex = hex
+	print(Color.hex(hex))
+	return Color.hex(hex)
+	

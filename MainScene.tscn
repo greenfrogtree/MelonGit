@@ -21,11 +21,9 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:0/0 = 0
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:0/0 = 0
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
@@ -56,7 +54,6 @@ texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_1w30g"]
 tile_size = Vector2i(32, 32)
@@ -69,11 +66,18 @@ script = ExtResource("1_lfgs5")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Spawner" parent="." instance=ExtResource("6_ecqcl")]
-position = Vector2(2014, 752)
+position = Vector2(1765, 599)
 scale = Vector2(1.04612, 1.46423)
 
 [node name="Node2D2" parent="." instance=ExtResource("8_uilxn")]
-position = Vector2(832, 659)
+position = Vector2(832, 522)
+
+[node name="Node2D3" parent="Node2D2" instance=ExtResource("8_uilxn")]
+position = Vector2(-160, -1)
+
+[node name="Node2D4" parent="Node2D2" instance=ExtResource("8_uilxn")]
+position = Vector2(-125, 16)
+rotation = 1.59066
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
@@ -81,7 +85,7 @@ script = ExtResource("10_ho686")
 
 [node name="Sky2" type="Sprite2D" parent="."]
 z_index = -3
-position = Vector2(2888, 545)
+position = Vector2(2888, 561)
 scale = Vector2(3, 3)
 texture = ExtResource("10_7dku5")
 
@@ -111,8 +115,10 @@ layout_mode = 2
 columns = 8
 
 [node name="Catapult2" parent="Logic" instance=ExtResource("8_j3ral")]
-position = Vector2(77, -65)
+position = Vector2(21, -124)
 scale = Vector2(3, 3)
+frame = 3
+frame_progress = 0.728136
 
 [node name="Farm" type="Sprite2D" parent="Logic"]
 position = Vector2(208, -50)
@@ -180,10 +186,22 @@ offset_bottom = 84.0
 scale = Vector2(1.00949, 1)
 
 [node name="TileMap" type="TileMap" parent="." groups=["ground"]]
-scale = Vector2(3, 3)
+position = Vector2(14, -26)
+scale = Vector2(3, 3.00652)
 tile_set = SubResource("TileSet_1w30g")
 format = 2
-layer_0/tile_data = PackedInt32Array(458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 65537, 0, 524298, 65537, 0, 524297, 131073, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589834, 131073, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0)
+layer_0/tile_data = PackedInt32Array(458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 65537, 0, 524298, 65537, 0, 524297, 131073, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589834, 131073, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 65537, 0, 524310, 65537, 268435456, 589846, 131073, 268435456, 589855, 131073, 0, 589856, 1, 0, 589857, 1, 0, 589858, 1, 0, 589859, 1, 0, 589860, 1, 0, 589862, 1, 0, 589861, 1, 0, 589863, 1, 0, 589864, 1, 0, 589865, 1, 0, 524315, 1, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap" groups=["ground"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+position = Vector2(671.5, 185.667)
+scale = Vector2(68.15, 19.5667)
+polygon = PackedVector2Array(-9.84348, 2.04429, -5.57349, 1.99319, -4.66862, 5.22998, 0.393739, 5.28109, 0.90242, 3.7138, 4.69308, 3.66269, 5.17241, 5.22998, 9.84837, 5.22998, 9.86305, 6.84838, 4.70775, 6.89949, -9.79457, 7.2402)
+
+[node name="Catapult2" parent="." instance=ExtResource("8_j3ral")]
+position = Vector2(-160, 344)
+frame_progress = 0.858321
 
 [connection signal="pressed" from="Logic/BuildingUi/VBoxContainer/Catapult" to="Logic" method="_on_catapult_pressed"]
 [connection signal="pressed" from="Logic/BuildingUi/VBoxContainer/Farm" to="Logic" method="_on_farm_pressed"]

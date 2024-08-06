@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bijjksnkngjdy"]
+[gd_scene load_steps=10 format=3 uid="uid://bijjksnkngjdy"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_sk48s"]
 [ext_resource type="PackedScene" uid="uid://ctxkuamspbjm2" path="res://Goblin.aseprite" id="2_b380w"]
 [ext_resource type="Script" path="res://Scripts/EnemyCollision.gd" id="3_cx2wo"]
 [ext_resource type="Script" path="res://Scripts/Area2D2.gd" id="4_q8erg"]
+[ext_resource type="Texture2D" uid="uid://bbmuor06wxlf3" path="res://icon.svg" id="5_1je36"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cegx2"]
 friction = 2.0
@@ -30,6 +31,17 @@ health = 200
 speed = 2000
 baseX = 240
 maxSpeed = 80
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-20, -1)
+scale = Vector2(0.328125, -0.0078125)
+texture = ExtResource("5_1je36")
+
+[node name="Icon2" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(-9, 0.999996)
+rotation = 2.77092
+scale = Vector2(0.328125, -0.0078125)
+texture = ExtResource("5_1je36")
 
 [node name="Goblin" parent="RigidBody2D" instance=ExtResource("2_b380w")]
 position = Vector2(0, -10)
@@ -63,7 +75,15 @@ target_position = Vector2(0, 29)
 target_position = Vector2(-45, 0)
 
 [node name="Step2" type="RayCast2D" parent="RigidBody2D"]
-target_position = Vector2(-32, 9)
+position = Vector2(0, 5)
+target_position = Vector2(-30, 14)
+
+[node name="TextEdit" type="TextEdit" parent="RigidBody2D"]
+offset_left = -25.0
+offset_top = -66.0
+offset_right = 94.0
+offset_bottom = -33.0
+scale = Vector2(0.537601, 0.537601)
 
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
 [connection signal="area_entered" from="RigidBody2D/Area2D" to="RigidBody2D" method="_on_area_2d_area_entered"]

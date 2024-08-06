@@ -26,24 +26,22 @@ func _ready():
 		set_collision_mask_value(1, false)
 		print("collision"+str(collision_layer))
 	print(mouse_position)
+	self.apply_torque(10000)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass	
-
-
-	
-func _on_area_2d_area_entered(area):
-	pass # Replace with function body.
-	if area.is_in_group("enemy") or area.is_in_group("ground"):
+func _physics_process(delta):
+	pass
+func collision(target):
+	if target.is_in_group("enemy") or target.is_in_group("ground"):
 		location = Vector2(0,0)
 		if upgrades[3] > 0:
 			spawn(boom, global_position - Catapult_location)
-		
 		total_velocity = int(sqrt((linear_velocity.x ** 2)+(linear_velocity.y ** 2))/10)
 		#print("hit" + str(total_velocity)+ " (" + str(linear_velocity.x) + ","+ str(linear_velocity.y))
-		if area.is_in_group("enemy"):
-			area.hit(total_velocity, upgrades)
+		if target.is_in_group("enemy"):
+			target.hit(total_velocity, upgrades)
 			if upgrades[8] >=1:
 				upgrades[8]-=1
 				return null
@@ -55,13 +53,22 @@ func _on_area_2d_area_entered(area):
 			if upgrades[11] >=1:
 				spawn(tornado, position)
 			
-			queue_free()
+			visible = false
+			get_parent().get_parent().gravity_scale = 0
+			global_position = Vector2(0,0)
 		
 			
 		else:
 			upgrades[7] -= 1
 		print("explode")
+func _on_area_2d_area_entered(area):
+	pass # Replace with function body.
+	collision(area)
 
+
+func _on_damage_box_body_entered(body):
+	pass # Replace with function body.
+	collision(body)
 
 func spawn(object, position):
 	var instance = object.instantiate()
@@ -84,10 +91,13 @@ func _on_guided_area_entered(area):
 
 
 
-func _on_node_2d_mouse(mouse_position, upgradesnew):
+func _on_node_2d_mouse(mouse_position, upgradesnew, colors):
 	pass # Replace with function body.
 	Catapult_location = global_position
 	upgrades = upgradesnew
+	$WatermelonSprite/WatermelonBody.material.set_shader_parameter("value", colors[0])
+	$WatermelonSprite/WatermelonStripes.material.set_shader_parameter("value", colors[1])
+	$WatermelonSprite/WatermelonShine.material.set_shader_parameter("value", colors[3])	
 	print(upgrades)
 	print("mouse:" + str(mouse_position))
 	print("catapult:" + str(Catapult_location))

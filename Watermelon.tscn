@@ -1,22 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpesjc8y0wiyq"]
+[gd_scene load_steps=15 format=3 uid="uid://dpesjc8y0wiyq"]
 
 [ext_resource type="Script" path="res://Messenger4.gd" id="1_f3ux8"]
 [ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_hkkll"]
 [ext_resource type="Script" path="res://Scripts/DamageBox.gd" id="2_bk2re"]
-[ext_resource type="Texture2D" uid="uid://3v2idgifk6qm" path="res://Art/Watermelon.png" id="3_sv05p"]
+[ext_resource type="Shader" path="res://watermelon_sprite.gdshader" id="4_dbhgi"]
+[ext_resource type="Texture2D" uid="uid://bctgennclk63i" path="res://SmallWatermelon.aseprite" id="5_7n5dn"]
+[ext_resource type="Texture2D" uid="uid://bg5a0byjwrnh2" path="res://SmallWatermelonShine.aseprite" id="6_0hosg"]
+[ext_resource type="Texture2D" uid="uid://wxpn8xsa78qo" path="res://SmallWatermelonStripes.aseprite" id="7_7ac4o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tdxsd"]
 bounce = 0.39
 absorbent = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6fu8j"]
+shader = ExtResource("4_dbhgi")
+shader_parameter/value = null
+shader_parameter/is_highlight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7b760"]
+shader = ExtResource("4_dbhgi")
+shader_parameter/value = null
+shader_parameter/is_highlight = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8k8jc"]
+shader = ExtResource("4_dbhgi")
+shader_parameter/value = null
+shader_parameter/is_highlight = null
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_k8034"]
 radius = 258.366
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_470t4"]
-radius = 78.7554
+radius = 121.709
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glb2j"]
-radius = 51.8537
+radius = 74.922
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_f3ux8")
@@ -29,6 +47,25 @@ collision_mask = 7
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_tdxsd")
 script = ExtResource("1_hkkll")
+
+[node name="WatermelonSprite" type="Node2D" parent="RigidBody2D"]
+position = Vector2(-7.47247e-06, -1.00001)
+scale = Vector2(0.979432, 1)
+
+[node name="WatermelonBody" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+material = SubResource("ShaderMaterial_6fu8j")
+scale = Vector2(3, 3)
+texture = ExtResource("5_7n5dn")
+
+[node name="WatermelonShine" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+material = SubResource("ShaderMaterial_7b760")
+scale = Vector2(3, 3)
+texture = ExtResource("6_0hosg")
+
+[node name="WatermelonStripes" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+material = SubResource("ShaderMaterial_8k8jc")
+scale = Vector2(3, 3)
+texture = ExtResource("7_7ac4o")
 
 [node name="Guided" type="Area2D" parent="RigidBody2D"]
 
@@ -46,13 +83,8 @@ shape = SubResource("CircleShape2D_470t4")
 scale = Vector2(0.248381, 0.256124)
 shape = SubResource("CircleShape2D_glb2j")
 
-[node name="Watermelon" type="Sprite2D" parent="RigidBody2D"]
-texture_filter = 1
-position = Vector2(-8.10623e-06, -7.62939e-06)
-scale = Vector2(0.372429, 0.372429)
-texture = ExtResource("3_sv05p")
-
 [connection signal="mouse" from="." to="RigidBody2D" method="_on_node_2d_mouse"]
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
 [connection signal="area_entered" from="RigidBody2D/Guided" to="RigidBody2D" method="_on_guided_area_entered"]
 [connection signal="area_entered" from="RigidBody2D/DamageBox" to="RigidBody2D" method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="RigidBody2D/DamageBox" to="RigidBody2D" method="_on_damage_box_body_entered"]

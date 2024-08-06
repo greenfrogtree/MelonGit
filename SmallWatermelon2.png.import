@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj10cf3qdkr1l"
-path="res://.godot/imported/Catapult2.png-985f9dfba9f824c45fd6e652b627fa85.ctex"
+uid="uid://btjv5re2belmt"
+path="res://.godot/imported/SmallWatermelon2.png-7d38ccab895a32b704af54a9bf021763.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Catapult2.png"
-dest_files=["res://.godot/imported/Catapult2.png-985f9dfba9f824c45fd6e652b627fa85.ctex"]
+source_file="res://SmallWatermelon2.png"
+dest_files=["res://.godot/imported/SmallWatermelon2.png-7d38ccab895a32b704af54a9bf021763.ctex"]
 
 [params]
 
