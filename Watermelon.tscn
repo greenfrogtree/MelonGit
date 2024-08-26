@@ -36,10 +36,7 @@ radius = 121.709
 [sub_resource type="CircleShape2D" id="CircleShape2D_glb2j"]
 radius = 74.922
 
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_f3ux8")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["watermelon"]]
+[node name="RigidBody2D" type="RigidBody2D" groups=["watermelon"]]
 position = Vector2(7.62939e-06, 1.00001)
 scale = Vector2(1.021, 1)
 collision_layer = 7
@@ -48,43 +45,52 @@ mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_tdxsd")
 script = ExtResource("1_hkkll")
 
-[node name="WatermelonSprite" type="Node2D" parent="RigidBody2D"]
+[node name="WatermelonSprite" type="Node2D" parent="."]
 position = Vector2(-7.47247e-06, -1.00001)
 scale = Vector2(0.979432, 1)
 
-[node name="WatermelonBody" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+[node name="WatermelonBody" type="Sprite2D" parent="WatermelonSprite"]
 material = SubResource("ShaderMaterial_6fu8j")
 scale = Vector2(3, 3)
 texture = ExtResource("5_7n5dn")
 
-[node name="WatermelonShine" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+[node name="WatermelonShine" type="Sprite2D" parent="WatermelonSprite"]
 material = SubResource("ShaderMaterial_7b760")
 scale = Vector2(3, 3)
 texture = ExtResource("6_0hosg")
 
-[node name="WatermelonStripes" type="Sprite2D" parent="RigidBody2D/WatermelonSprite"]
+[node name="WatermelonStripes" type="Sprite2D" parent="WatermelonSprite"]
 material = SubResource("ShaderMaterial_8k8jc")
 scale = Vector2(3, 3)
 texture = ExtResource("7_7ac4o")
 
-[node name="Guided" type="Area2D" parent="RigidBody2D"]
+[node name="Guided" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Guided"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guided"]
 shape = SubResource("CircleShape2D_k8034")
 
-[node name="DamageBox" type="Area2D" parent="RigidBody2D" groups=["watermelon"]]
+[node name="DamageBox" type="Area2D" parent="." groups=["watermelon"]]
 scale = Vector2(0.25, 0.252)
 script = ExtResource("2_bk2re")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/DamageBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
 shape = SubResource("CircleShape2D_470t4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.248381, 0.256124)
 shape = SubResource("CircleShape2D_glb2j")
 
-[connection signal="mouse" from="." to="RigidBody2D" method="_on_node_2d_mouse"]
-[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
-[connection signal="area_entered" from="RigidBody2D/Guided" to="RigidBody2D" method="_on_guided_area_entered"]
-[connection signal="area_entered" from="RigidBody2D/DamageBox" to="RigidBody2D" method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="RigidBody2D/DamageBox" to="RigidBody2D" method="_on_damage_box_body_entered"]
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_f3ux8")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = -127.326
+offset_top = -106.0
+offset_right = 7.67385
+offset_bottom = -45.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Guided" to="." method="_on_guided_area_entered"]
+[connection signal="area_entered" from="DamageBox" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
+[connection signal="mouse" from="Node2D" to="." method="_on_node_2d_mouse"]

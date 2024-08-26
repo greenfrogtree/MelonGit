@@ -23,7 +23,7 @@ func apply_fupgrades(newupgrades):
 func _on_area_entered(area):
 	if area.is_in_group("enemy"):
 		print("explosion damaage")
-		area.hit(upgrades[0]/2, upgrades)
+		area.hit(upgrades[5]/2, upgrades)
 	pass # Replace with function body.
 
 

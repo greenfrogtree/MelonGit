@@ -120,7 +120,7 @@ func _on_area_2d_damage(value, upgrades):
 	if upgrades[4] >= 1:
 		print("freeze")
 		freeze(upgrades[4])
-	if upgrades[2] >=1:
+	if upgrades[10] >=1:
 		chainfunction(upgrades)
 		damage(upgrades[0])
 	if upgrades[1] >= 1:
@@ -174,7 +174,7 @@ func spawnchain(object, position,upgrades):
 	instance.global_position = position
 	instance.apply_upgrades(upgrades)
 	get_parent().add_child(instance)
-	instance.global_scale = Vector2(1+1*upgrades[2]/6, 1+1 *upgrades[2]/6)
+	instance.global_scale = Vector2(1+1*upgrades[10]/6, 1+1 *upgrades[10]/6)
 func spawn(object, position):
 	var instance = object.instantiate()
 	instance.global_position = position
@@ -186,8 +186,8 @@ func freeze(level) -> void:
 	freezetimer= level
 	sprite.pause()
 func chainfunction(upgrades):
-	if upgrades[2] >= 0:
-		upgrades[2] = upgrades[2]-1
+	if upgrades[10] >= 0:
+		upgrades[10] = upgrades[10]-1
 		spawnchain(chain, position, upgrades)
 func damage(hp):
 	health -= hp * weakness

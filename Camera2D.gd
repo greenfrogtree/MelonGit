@@ -9,6 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$"../Logic/Inventory".camera_pos = global_position - Vector2(960,540)
 	if Input.is_action_pressed("left")&& global_position.x >= 960:
 		print("left")
 		if velocity <= 3:

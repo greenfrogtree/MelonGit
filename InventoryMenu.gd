@@ -6,10 +6,12 @@ var selected_button
 var selected_number
 var temp1
 var temp2
+var camera_pos
+var opened = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
+	
 #func initialize():
 	#print("menu spawned" + str(len(melon)))
 	#for i in range(len(melon)):
@@ -20,12 +22,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
-	if Input.is_action_just_pressed('Inventory'):
+	position = camera_pos
+	if Input.is_action_just_pressed('Inventory') and !opened:
 		print("Inventory open")
-		visible = !visible
-	elif Input.is_action_just_pressed('menu_quit'):
+		visible = true
+		opened = true
+		get_parent().mouse_in_ui +=1
+	elif Input.is_action_just_pressed('menu_quit') and opened:
 		visible = false
+		get_parent().mouse_in_ui -=1
+		opened = false
+	
 func spawn(object, position, number):
 	inventory = get_parent()
 	print("Inventory:"+ str(inventory))
@@ -48,6 +55,7 @@ func selected(number, button):
 			print(temp2)
 			melon[selected_number] = temp2
 			melon[number]  = temp1
+			get_parent().swap()
 			selected_button.get_parent().push(melon[selected_number],selected_number, inventory)
 			button.get_parent().push(melon[number], number, inventory)
 			selected_number = null

@@ -106,9 +106,9 @@ script = ExtResource("8_goxwj")
 custom_minimum_size = Vector2(1000, 500)
 layout_mode = 0
 offset_left = 467.0
-offset_top = 44.0
+offset_top = 200.0
 offset_right = 1467.0
-offset_bottom = 1044.0
+offset_bottom = 1200.0
 
 [node name="GridContainer" type="GridContainer" parent="Logic/Inventory/ScrollContainer"]
 layout_mode = 2

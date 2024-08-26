@@ -15,6 +15,7 @@ var inventorymenu = preload("res://InventoryMenu.tscn")
 var inventorymenuinstance
 var object_pool =[]
 var tempinstance
+var catapult_offset = Vector2(0,0)
 
 # Get references to scene nodes
 @onready var sprite = $Catapult
@@ -24,9 +25,7 @@ var tempinstance
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Initial setup can be done here
-	for i in range(10):
-		spawn(watermelon, Vector2(0,0))
-	print("object pool prepared")	
+
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -80,11 +79,8 @@ func handle_selected_mode(delta):
 			print(min((get_global_mouse_position() - global_position).length() / 200, 3))
 			if sprite.frame >= min((get_global_mouse_position() - global_position).length() / 200, 3) and building.melons[current_melon][0]>=1:
 				sprite.frame = 0
-				
 				saved_angle = get_global_mouse_position()
-				tempinstance = object_pool.pop_front()
-				activate(tempinstance, global_position)  # Spawn watermelon at the current position
-				object_pool.append(tempinstance)
+				spawn(watermelon, global_position)  # Spawn watermelon at the current position
 		if Input.is_action_just_pressed("rmb")and building.mouse_in_ui<1:
 			mode = "armed"
 			saved_angle = get_global_mouse_position()
@@ -95,9 +91,7 @@ func handle_selected_mode(delta):
 func handle_armed_mode(delta):
 	if timer <= 0 and building.melons[current_melon][0]>=1:
 		timer = auto_time
-		tempinstance = object_pool.pop_front()
-		activate(tempinstance, global_position)  # Spawn watermelon at the current position
-		object_pool.append(tempinstance)  # Spawn watermelon periodically in armed mode
+		spawn(watermelon, global_position)  # Spawn watermelon at the current position
 		sprite.frame = 0
 	else:
 		update_sprite_frame(timer)  # Update the sprite frame based on the timer
@@ -120,16 +114,14 @@ func update_sprite_frame(timer):
 # Spawn a new object at the specified position
 func spawn(object, position):
 	var instance = object.instantiate()
-	instance.position = Vector2(0,0)
-	instance.rb.gravity_scale = 0
-	instance.visible = false
-	object_pool.append(instance)
+	instance.position = position+ catapult_offset
 	print(building.melons[current_melon][1])
-	get_parent().add_child(instance)
-func activate(object, position):
-	object.position = position
-	object.info(saved_angle,building.melons[current_melon][1], building.melons[current_melon][2]) 	  # Pass angle and upgrades to the instance
+	print(instance)
+	instance.info(saved_angle,building.melons[current_melon][1], building.melons[current_melon][2]) 	  # Pass angle and upgrades to the instance
 	building.melons[current_melon][0] -=1
+	get_parent().add_child(instance)
+
+	
 # Show or hide the arc based on the 'on' parameter
 func show_arc(on):
 	$Circle.visible = on
